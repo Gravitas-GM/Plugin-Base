@@ -1,6 +1,9 @@
 <?php
 	namespace gravitas\pluginbase;
 
+	use \add_menu_page;
+	use \add_action;
+
 	abstract class PluginBase {
 		public function addMenuPage($title, $type, $plug, $pageName) {
 			$main = $this;
