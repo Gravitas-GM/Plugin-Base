@@ -1,0 +1,23 @@
+{
+	"name": "gravitas/plugin-base",
+	"authors": [
+		{
+			"name": "Tyler Lartonoix / Gravitational Marketing",
+			"email": "development@gravitationalmarketing.com"
+		}
+	],
+	"repositories": [
+		{
+			"type": "composer",
+			"url": "http://packages.scend.net"
+		}
+	],
+	"require": {
+		"dbstudios/php-enum": "~1.0.0"
+	},
+	"autoload": {
+		"psr-4": {
+			"gravitas\\": "src/gravitas"
+		}
+	}
+}
