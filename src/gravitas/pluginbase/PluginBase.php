@@ -2,23 +2,29 @@
 	namespace gravitas\pluginbase;
 
 	abstract class PluginBase {
-		public function addMenuPage($title, $type, $plug, $pageName) {
-			$main = $this;
+		public function addMenuPage($title, $pageName, $pageType = PageType::OPTIONS, $hook = 'admin_menu', $plug = null) {
+			if ($pageType instanceof PageType)
+				$pageType = $pageType->getCapability();
 
-			\add_menu_page($title, $title, $type, $plug, function() use ($main, $pageName) {
-				$main->getPage($pageName);
+			if ($plug === null)
+				$plug = strtolower(str_replace(' ', '-', $title));
+
+			add_action($hook, function() use ($title, $pageName, $pageType, $plug) {
+				add_menu_page($title, $title, $pageType, $plug, function() use ($pageName) {
+					self::getPage($pageName);
+				});
 			});
 		}
 
 		public function getPage($page) {
-			if (!file_exists(sprintf('%spages/%s.php', \plugin_dir_path(__FILE__), $page)))
+			if (!file_exists(sprintf('%spages/%s.php', plugin_dir_path(__FILE__), $page)))
 				echo '<div><strong>Page not found.</strong></div>';
 			else
-				echo file_get_contents(\plugins_url('pages/' . $page . '.php', __FILE__));
+				echo file_get_contents(plugins_url('pages/' . $page . '.php', __FILE__));
 		}
 
 		public function addNotice(NoticeLevel $level, $message) {
-			\add_action('admin_notices', function() use ($level, $message) {
+			add_action('admin_notices', function() use ($level, $message) {
 				printf('<div class="%1$s"><p>%2$s</p></div>', $level, $message);
 			});
 		}
