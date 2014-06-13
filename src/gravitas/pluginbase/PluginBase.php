@@ -8,8 +8,7 @@
 
 			if ($plug === null)
 				$plug = strtolower(str_replace(' ', '-', $title));
-
-			$inst = $this;
+			
 			$page = self::getPage($pageName);
 
 			add_action($hook, function() use ($inst, $title, $page, $pageType, $plug) {
