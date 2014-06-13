@@ -2,7 +2,10 @@
 	namespace gravitas\pluginbase;
 
 	abstract class PluginBase {
-		public function addMenuPage($title, $pageName, $pageType = PageType::OPTIONS, $hook = 'admin_menu', $plug = null) {
+		public function addMenuPage($title, $pageName, $pageType = null, $hook = 'admin_menu', $plug = null) {
+			if ($pageType === null)
+				$pageType = PageType::OPTIONS();
+
 			if ($pageType instanceof PageType)
 				$pageType = $pageType->getCapability();
 
