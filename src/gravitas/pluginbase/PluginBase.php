@@ -9,20 +9,22 @@
 			if ($plug === null)
 				$plug = strtolower(str_replace(' ', '-', $title));
 
-			$inst = self;
+			$inst = $this;
+			$page = self::getPage($pageName);
 
-			add_action($hook, function() use ($inst, $title, $pageName, $pageType, $plug) {
-				add_menu_page($title, $title, $pageType, $plug, function() use ($inst, $pageName) {
-					$inst->getPage($pageName);
+			add_action($hook, function() use ($inst, $title, $page, $pageType, $plug) {
+				add_menu_page($title, $title, $pageType, $plug, function() use ($inst, $page) {
+					echo $page;
 				});
 			});
 		}
 
 		public function getPage($page) {
 			if (!file_exists(sprintf('%spages/%s.php', plugin_dir_path(__FILE__), $page)))
-				echo '<div><strong>Page not found.</strong></div>';
-			else
-				echo file_get_contents(plugins_url('pages/' . $page . '.php', __FILE__));
+				return '<div><strong>Page not found.</strong></div>';
+
+
+			return file_get_contents(plugins_url('pages/' . $page . '.php', __FILE__));
 		}
 
 		public function addNotice(NoticeLevel $level, $message) {
