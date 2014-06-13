@@ -9,7 +9,7 @@
 			if ($plug === null)
 				$plug = strtolower(str_replace(' ', '-', $title));
 
-			$inst = $this;
+			$inst = self;
 
 			add_action($hook, function() use ($inst, $title, $pageName, $pageType, $plug) {
 				add_menu_page($title, $title, $pageType, $plug, function() use ($inst, $pageName) {
