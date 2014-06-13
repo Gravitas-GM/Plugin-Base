@@ -8,11 +8,11 @@
 
 			if ($plug === null)
 				$plug = strtolower(str_replace(' ', '-', $title));
-			
+
 			$page = self::getPage($pageName);
 
-			add_action($hook, function() use ($inst, $title, $page, $pageType, $plug) {
-				add_menu_page($title, $title, $pageType, $plug, function() use ($inst, $page) {
+			add_action($hook, function() use ($title, $page, $pageType, $plug) {
+				add_menu_page($title, $title, $pageType, $plug, function() use ($page) {
 					echo $page;
 				});
 			});
