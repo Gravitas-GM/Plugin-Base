@@ -24,9 +24,6 @@
 		}
 
 		public function getPage($page) {
-			if (isset($_GET['debug']))
-				printf('%s/pages/%s.php', self::getPluginRoot(), $page);
-
 			if (!file_exists(sprintf('%s/pages/%s.php', self::getPluginRoot(), $page)))
 				return '<div><strong>Page not found.</strong></div>';
 
