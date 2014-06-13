@@ -16,6 +16,10 @@
 
 		public static final function init() {
 			parent::register('OPTIONS', 'manage_options');
+
+			parent::stopRegistration();
 		}
 	}
+
+	PageType::init();
 ?>
