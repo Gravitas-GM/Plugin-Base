@@ -1,7 +1,9 @@
 <?php
 	namespace gravitas\pluginbase;
 
-	abstract class PluginBase {
+	use \Serializable;
+
+	abstract class PluginBase implements Serializable {
 		const PLUGIN_ROOT_SEARCH_LEN = 18;
 
 		private $pageCache = array();
@@ -61,6 +63,14 @@
 			$pos = strpos($url, "wp-content/plugins") + self::PLUGIN_ROOT_SEARCH_LEN;
 
 			return substr($url, 0, strpos($url, '/', $pos + 1));
+		}
+
+		public function serialize() {
+			return serialize(array());
+		}
+
+		public function unserialize($data) {
+			// No need to do anything, really
 		}
 	}
 ?>
