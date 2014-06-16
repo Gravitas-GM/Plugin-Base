@@ -4,6 +4,8 @@
 	abstract class PluginBase {
 		const PLUGIN_ROOT_SEARCH_LEN = 18;
 
+		private $pageCache = array();
+
 		public function addMenuPage($title, $pageName, $pageType = null, $hook = 'admin_menu', $plug = null) {
 			if ($pageType === null)
 				$pageType = PageType::OPTIONS();
@@ -14,7 +16,7 @@
 			if ($plug === null)
 				$plug = strtolower(str_replace(' ', '-', $title));
 
-			$page = self::getPage($pageName);
+			$page = $this->getPage($pageName);
 
 			add_action($hook, function() use ($title, $page, $pageType, $plug) {
 				add_menu_page($title, $title, $pageType, $plug, function() use ($page) {
@@ -24,10 +26,22 @@
 		}
 
 		public function getPage($page) {
-			if (!file_exists(sprintf('%s/pages/%s.php', self::getPluginRoot(), $page)))
-				return '<div><strong>Page not found.</strong></div>';
+			if (array_key_exists($page, $this->pageCache))
+				return $this->pageCache[$page];
 
-			return file_get_contents(sprintf('%s/pages/%s.php', self::getPluginUrlRoot(), $page));
+			if (!file_exists(sprintf('%s/pages/%s.php', $this->getPluginRoot(), $page)))
+				return '<div><strong>Page not found.</strong></div>';
+			else {
+				ob_start();
+
+				include sprintf('%s/pages/%s.php', $this->getPluginRoot(), $page);
+
+				$data = ob_get_clean();
+			}
+
+			$this->pageCache[$page] = $data;
+
+			return $data;
 		}
 
 		public function addNotice(NoticeLevel $level, $message) {
