@@ -13,10 +13,18 @@
 	class PageType extends Enum {
 		private $capability;
 
+		/**
+		 * PageType constructor.
+		 *
+		 * @param string $capability
+		 */
 		public function __construct($capability) {
 			$this->capability = $capability;
 		}
 
+		/**
+		 * @return string
+		 */
 		public function getCapability() {
 			return $this->capability;
 		}

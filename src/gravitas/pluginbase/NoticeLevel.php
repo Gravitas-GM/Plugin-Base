@@ -15,10 +15,18 @@
 	class NoticeLevel extends Enum {
 		private $cssClass;
 
+		/**
+		 * NoticeLevel constructor.
+		 *
+		 * @param string $cssClass
+		 */
 		public function __construct($cssClass) {
 			$this->cssClass = $cssClass;
 		}
 
+		/**
+		 * @return string
+		 */
 		public function getClassName() {
 			return $this->cssClass;
 		}
