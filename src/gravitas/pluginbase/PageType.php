@@ -1,8 +1,15 @@
 <?php
-	namespace gravitas\pluginbase;
+	namespace Gravitas\PluginBase;
 
-	use dbstudios\phpenum\Enum;
+	use DaybreakStudios\Common\Enum\Enum;
 
+	/**
+	 * Class PageType
+	 *
+	 * @package gravitas\PluginBase
+	 *
+	 * @method static PageType OPTIONS()
+	 */
 	class PageType extends Enum {
 		private $capability;
 
@@ -16,10 +23,5 @@
 
 		public static final function init() {
 			parent::register('OPTIONS', 'manage_options');
-
-			parent::stopRegistration();
 		}
 	}
-
-	PageType::init();
-?>

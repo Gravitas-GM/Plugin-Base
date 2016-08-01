@@ -1,8 +1,17 @@
 <?php
-	namespace gravitas\pluginbase;
+	namespace Gravitas\PluginBase;
 
-	use dbstudios\phpenum\Enum;
+	use DaybreakStudios\Common\Enum\Enum;
 
+	/**
+	 * Class NoticeLevel
+	 *
+	 * @package gravitas\PluginBase
+	 *
+	 * @method static NoticeLevel ERROR()
+	 * @method static NoticeLevel NAG()
+	 * @method static NoticeLevel UPDATE()
+	 */
 	class NoticeLevel extends Enum {
 		private $cssClass;
 
@@ -18,10 +27,5 @@
 			parent::register('ERROR', 'error');
 			parent::register('NAG', 'update-nag');
 			parent::register('UPDATE', 'updated');
-
-			parent::stopRegistration();
 		}
 	}
-
-	NoticeLevel::init();
-?>
